@@ -1,0 +1,4 @@
+*venv*
+./geappvenv/*
+./__pycache__/*
+./.gradio/*
