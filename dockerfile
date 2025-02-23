@@ -1,20 +1,14 @@
-# Use the official Python image from the Docker Hub
-FROM python:3.10-slim
+# Base image with vLLM and CUDA support
+FROM vllm/vllm-openai:latest
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+# Set the working directory inside the container
+WORKDIR /app
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+# Expose the required port for the API
+EXPOSE 8000
 
-# Install the required Python packages
-RUN pip install --no-cache-dir -r requirements.txt
+# Set environment variables for vLLM
+ENV HUGGING_FACE_HUB_TOKEN=${HUGGING_FACE_HUB_TOKEN}
 
-# Copy the rest of the application code into the container
-COPY . .
-
-# Expose the port that Gradio will run on
-EXPOSE 7860
-
-# Command to run the Gradio app
-CMD ["python", "app.py"]
+# Command to start the vLLM API server
+CMD ["vllm", "serve", "--model", "Motunrayo1960422/unsloth-Llama-3.2-3B-bnb-4bit-text-Great-Expectation-16bit"]
