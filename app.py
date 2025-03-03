@@ -20,7 +20,7 @@ def query_vllm(prompt, use_cache=True, temperature=1.5, min_p=0.1):
         if "choices" in response_data:
             raw_output = response_data["choices"][0]["message"]["content"]
             # Parse output into Expectations and Recommendations/Instructions
-            cleaned_output = re.sub(r'[^a-zA-Z0-9\s.,:;!?()\-\'"\n]+', '', raw_output).strip()
+            cleaned_output = re.sub(r'[^a-zA-Z0-9\s.,:;!?()\-\'"\n=_$#%&@*]+', '', raw_output).strip()
             
             # Identify Recommendations if present
             if "#replace" in cleaned_output:
