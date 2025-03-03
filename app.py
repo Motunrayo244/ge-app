@@ -43,8 +43,8 @@ interface = gr.Interface(
     inputs=[
         gr.Textbox(label="Prompt"),
         gr.Checkbox(label="Use Cache", value=True),
-        gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, step=0.1, value=1.5),
-        gr.Slider(label="Min P", minimum=0.0, maximum=1.0, step=0.1, value=0.1),
+        gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, step=0.1, value=0.8),
+        gr.Slider(label="Min P", minimum=0.0, maximum=1.0, step=0.1, value=0.0),
     ],
     outputs="text",
     title="Chat with Your Model",
