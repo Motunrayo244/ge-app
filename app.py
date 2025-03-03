@@ -5,7 +5,7 @@ import re
 # Define the function to call the API
 def query_vllm(prompt, use_cache=True, temperature=1.5, min_p=0.1):
     api_url = "https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" # "http://172.17.0.2:8000/v1/chat/completions"
-    headers = {"Content-Type": "application/json"}
+    headers = {"Content-Type": "application/json", "Accept" : "application/json"}
     payload = {
         "model": "tgi",  
         "messages": [{"role": "user", "content": prompt}],
