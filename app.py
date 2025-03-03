@@ -4,10 +4,10 @@ import re
 
 # Define the function to call the API
 def query_vllm(prompt, use_cache=True, temperature=1.5, min_p=0.1):
-    api_url = "https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud" # "http://172.17.0.2:8000/v1/chat/completions"
+    api_url = "https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" # "http://172.17.0.2:8000/v1/chat/completions"
     headers = {"Content-Type": "application/json"}
     payload = {
-        "model": "Motunrayo1960422/text-to-GreatExpectation-llama-finetuned-v1",  
+        "model": "tgi",  
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": 512,
         "use_cache": use_cache,
