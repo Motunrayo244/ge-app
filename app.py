@@ -1,11 +1,15 @@
 import gradio as gr
 import requests
 import re
+from openai import OpenAI
 
+#client = OpenAI(base_url="https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud/v1")
 # Define the function to call the API
 def query_vllm(prompt, use_cache=True, temperature=1.5, min_p=0.1):
-    api_url = "https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" # "http://172.17.0.2:8000/v1/chat/completions"
+    api_url = "https://m5ypgg3uebl8r4hj.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" 
+    # "http://172.17.0.2:8000/v1/chat/completions"
     headers = {"Content-Type": "application/json", "Accept" : "application/json"}
+    data = {"inputs": prompt}
     payload = {
         "model": "tgi",  
         "messages": [{"role": "user", "content": prompt}],
@@ -14,9 +18,14 @@ def query_vllm(prompt, use_cache=True, temperature=1.5, min_p=0.1):
         "temperature": temperature,
         "min_p": min_p,
     }
+
+
     try:
+        #chat_completion = client.chat_completions.create(**payload)
+        
         response = requests.post(api_url, headers=headers, json=payload)
         response_data = response.json()
+        print(response_data)
         if "choices" in response_data:
             raw_output = response_data["choices"][0]["message"]["content"]
             # Parse output into Expectations and Recommendations/Instructions
@@ -43,8 +52,8 @@ interface = gr.Interface(
     inputs=[
         gr.Textbox(label="Prompt"),
         gr.Checkbox(label="Use Cache", value=True),
-        gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, step=0.1, value=1.5),
-        gr.Slider(label="Min P", minimum=0.0, maximum=1.0, step=0.1, value=0.1),
+        gr.Slider(label="Temperature", minimum=0.1, maximum=2.0, step=0.1, value=0.8),
+        gr.Slider(label="Min P", minimum=0.0, maximum=1.0, step=0.1, value=0.0),
     ],
     outputs="text",
     title="Chat with Your Model",
